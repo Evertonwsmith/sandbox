@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sandbox/Widget/homeButtons.dart';
 import 'package:sandbox/grocery_list.dart';
 import 'package:sandbox/notepad.dart';
 import 'package:sandbox/calendar.dart';
 import 'package:sandbox/pictures.dart';
+
 class home extends StatelessWidget {
   const home({super.key});
 
@@ -13,56 +15,16 @@ class home extends StatelessWidget {
         title: Text('Home'),
       ),
       body: Center(
-        child: Column(
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Notepad(),
-                  ),
-                );
-              },
-              child: Text('Shared Notepad'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => calendar(),
-                  ),
-                );
-              },
-              child: Text('Shared Calendar'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => pictures(),
-                  ),
-                );
-              },
-              child: Text('Shared Pictures'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => groceryList(),
-                  ),
-                );
-              },
-              child: Text('Grocery List'),
-            ),
-          ],
-          mainAxisAlignment: MainAxisAlignment.center,
-        )
-      ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+
+        children: [
+          homeButtons(pageName: Notepad(),title: 'Shared Notepad'),
+          homeButtons(pageName: groceryList(), title: 'Grocery List'),
+          homeButtons(pageName: calendar(), title: 'Weekly Calendar',),
+          homeButtons(pageName: pictures(), title: 'Pictures'),
+        ],
+      )),
     );
   }
 }

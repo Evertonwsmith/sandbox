@@ -69,15 +69,7 @@ class _NotepadState extends State<Notepad> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IconButton(
-                color: Colors.black,
-                iconSize: 50,
-                icon: Icon(Icons.color_lens),
-                onPressed: () {
-                  // colorWheel();
 
-                },
-              ),
               IconButton(
                 color: Colors.black,
                 iconSize: 50,

@@ -1,15 +1,6 @@
-List<String> grocerySort(List items) {
-  List oneList = ['apples', 'banana', 'orange'];
-  List twoList = ['coffee', 'cereal', 'tea', 'peanut butter'];
-  List threeList = ['rice', 'tin', 'baking'];
-  List fourList = ['chickpea', 'beans', 'spice'];
-  List fiveList = ['noodle'];
-  List sixList = ['sparkling', 'chips', 'water'];
-  List sevenList = ['coke', 'pop', 'soda'];
-  List eightList = ['tp', 'bags', 'dishsoap'];
-  List nineList = ['GF', 'DF', 'Frozen Pizza', 'hashbrowns'];
-  List tenList = ['yogurt', 'eggs', 'orange juice'];
+import 'package:sandbox/Data/foodLists.dart';
 
+List<String> grocerySort(List items) {
   List one = [];
   List two = [];
   List three = [];
@@ -20,32 +11,7 @@ List<String> grocerySort(List items) {
   List eight = [];
   List nine = [];
   List ten = [];
-  // items.forEach((key, value) {
-  //   if (oneList.contains(value.toString())) {
-  //     one.add(value);
-  //   } else if (twoList.contains(value.toString())) {
-  //     two.add(value);
-  //   } else if (threeList.contains(value.toString())) {
-  //     three.add(value);
-  //   } else if (fourList.contains(value.toString())) {
-  //     four.add(value);
-  //   } else if (fiveList.contains(value.toString())) {
-  //     five.add(value);
-  //   } else if (sixList.contains(value.toString())) {
-  //     six.add(value);
-  //   } else if (sevenList.contains(value.toString())) {
-  //     seven.add(value);
-  //   } else if (eightList.contains(value.toString())) {
-  //     eight.add(value);
-  //   } else if (nineList.contains(value.toString())) {
-  //     nine.add(value);
-  //   } else if (tenList.contains(value.toString())) {
-  //     ten.add(value);
-  //   } else {
-  //     print('Not in list');
-  //     five.add(value);
-  //   }
-  // });
+
   items.forEach((item) {
     if (oneList.contains(item)) {
       one.add(item);
