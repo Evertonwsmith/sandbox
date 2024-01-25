@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sandbox/Logic/grocery_sort.dart';
+import 'package:sandbox/Styles/fonts.dart';
 import 'package:sandbox/Widget/groceryItem.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -56,6 +57,10 @@ class _groceryListState extends State<groceryList> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Grocery List"),
+        backgroundColor: Colors.grey[500],
+        elevation: 0,
+        titleTextStyle: mainWhite,
+        titleSpacing: 15,
       ),
       body: Column(
         children: [

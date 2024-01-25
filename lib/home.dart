@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sandbox/Styles/fonts.dart';
 import 'package:sandbox/Widget/homeButtons.dart';
 import 'package:sandbox/grocery_list.dart';
 import 'package:sandbox/notepad.dart';
@@ -12,7 +13,11 @@ class home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: Center(child: Text('HOME')),
+        backgroundColor: Colors.grey[500],
+        elevation: 0,
+        titleTextStyle: mainWhite,
+        titleSpacing: 15,
       ),
       body: Center(
           child: Column(

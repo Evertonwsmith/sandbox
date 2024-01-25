@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sandbox/Styles/fonts.dart';
 import 'package:sandbox/Widget/dayOfWeek.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,7 +21,6 @@ class _calendarState extends State<calendar> {
 
   late SharedPreferences _sharedPreferences;
 
-
   @override
   void dispose() {
     _controller.dispose();
@@ -29,7 +29,7 @@ class _calendarState extends State<calendar> {
 
   void _loadNotes() async {
     _sharedPreferences = await SharedPreferences.getInstance();
-    String? notes = _sharedPreferences.getString('week$week');
+    String? notes = _sharedPreferences.getString('week$week$day');
     if (notes != null) {
       _controller.text = notes;
     }
@@ -37,7 +37,7 @@ class _calendarState extends State<calendar> {
 
   void _saveNotes() async {
     _sharedPreferences = await SharedPreferences.getInstance();
-    _sharedPreferences.setString('week$week', _controller.text);
+    _sharedPreferences.setString('week$week$day', _controller.text);
   }
 
   @override
@@ -46,6 +46,10 @@ class _calendarState extends State<calendar> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Calendar"),
+          backgroundColor: Colors.grey[500],
+          elevation: 0,
+          titleTextStyle: mainWhite,
+          titleSpacing: 15,
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -55,19 +59,35 @@ class _calendarState extends State<calendar> {
               children: [
                 IconButton(
                   icon: Icon(Icons.arrow_back),
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      week--;
+                    });
+                  },
                 ),
-                Text('This Week'),
+                Text(week == 0
+                    ? 'This Week'
+                    : week > 0
+                        ? 'This Week +' + week.toString()
+                        : 'This Week -' + week.toString()),
                 IconButton(
                   icon: Icon(Icons.arrow_forward),
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      week++;
+                    });
+                  },
                 ),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                dayOfWeek(day: 'M'),
+                GestureDetector(
+                    onTap:(){ setState(() {
+                      day = 0;
+                    });},
+                    child: dayOfWeek(day: 'M')),
                 dayOfWeek(day: 'T'),
                 dayOfWeek(day: 'W'),
                 dayOfWeek(day: 'Th'),

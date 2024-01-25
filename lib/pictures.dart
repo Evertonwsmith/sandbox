@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sandbox/Styles/fonts.dart';
 import 'package:sandbox/Widget/picture.dart';
 
 class pictures extends StatefulWidget {
@@ -22,6 +23,10 @@ class _PicturesState extends State<pictures> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Pictures"),
+        backgroundColor: Colors.grey[500],
+        elevation: 0,
+        titleTextStyle: mainWhite,
+        titleSpacing: 15,
       ),
       body: Column(
         children: [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sandbox/Styles/fonts.dart';
 
 class homeButtons extends StatelessWidget {
   final pageName;
@@ -11,7 +12,6 @@ class homeButtons extends StatelessWidget {
     return ElevatedButton(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(Colors.grey),
-          foregroundColor: MaterialStateProperty.all(Colors.white),
           shape: MaterialStateProperty.all(RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18.0),
           )),
@@ -26,11 +26,7 @@ class homeButtons extends StatelessWidget {
         },
         child: Text(
           title,
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 20.0,
-          ),
+          style: mainWhite,
         ));
   }
 }
