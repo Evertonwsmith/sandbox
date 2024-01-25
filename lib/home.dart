@@ -14,9 +14,8 @@ class home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text('HOME')),
-        backgroundColor: Colors.grey[500],
         elevation: 0,
-        titleTextStyle: mainWhite,
+        titleTextStyle: mainBlack,
         titleSpacing: 15,
       ),
       body: Center(

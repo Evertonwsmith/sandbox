@@ -3,7 +3,6 @@ import 'package:sandbox/Styles/fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Notepad extends StatefulWidget {
-
   const Notepad({super.key});
 
   @override
@@ -11,7 +10,8 @@ class Notepad extends StatefulWidget {
 }
 
 class _NotepadState extends State<Notepad> {
-
+  Color saveColor = Colors.black;
+  bool textChanged = false;
   late TextEditingController _controller;
   late SharedPreferences _prefs;
 
@@ -36,8 +36,15 @@ class _NotepadState extends State<Notepad> {
   }
 
   void _saveNotes() async {
-    _prefs = await SharedPreferences.getInstance();
-    _prefs.setString('notes', _controller.text);
+    if (textChanged == true) {
+      _prefs = await SharedPreferences.getInstance();
+      _prefs.setString('notes', _controller.text);
+      setState(() {
+        textChanged = false;
+        saveColor = Colors.black;
+        print('back');
+      });
+    }
   }
 
   @override
@@ -46,9 +53,8 @@ class _NotepadState extends State<Notepad> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Notepad'),
-        backgroundColor: Colors.grey[500],
         elevation: 0,
-        titleTextStyle: mainWhite,
+        titleTextStyle: mainBlack,
         titleSpacing: 15,
       ),
       body: Column(
@@ -61,6 +67,7 @@ class _NotepadState extends State<Notepad> {
                   color: Colors.grey[300]),
               padding: const EdgeInsets.all(50),
               child: TextField(
+                onChanged: (String _) => _textChanged(),
                 controller: _controller,
                 showCursor: true,
                 maxLines: null,
@@ -74,9 +81,8 @@ class _NotepadState extends State<Notepad> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-
               IconButton(
-                color: Colors.black,
+                color: saveColor,
                 iconSize: 50,
                 icon: Icon(Icons.save),
                 onPressed: _saveNotes,
@@ -88,4 +94,13 @@ class _NotepadState extends State<Notepad> {
     );
   }
 
+  void _textChanged() async {
+    if (!textChanged) {
+      setState(() {
+        saveColor = Colors.red;
+        textChanged = true;
+        print('touched');
+      });
+    }
+  }
 }

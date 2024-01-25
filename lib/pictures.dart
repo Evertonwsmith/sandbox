@@ -23,9 +23,8 @@ class _PicturesState extends State<pictures> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Pictures"),
-        backgroundColor: Colors.grey[500],
         elevation: 0,
-        titleTextStyle: mainWhite,
+        titleTextStyle: mainBlack,
         titleSpacing: 15,
       ),
       body: Column(

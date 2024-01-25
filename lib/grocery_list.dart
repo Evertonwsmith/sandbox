@@ -57,9 +57,8 @@ class _groceryListState extends State<groceryList> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Grocery List"),
-        backgroundColor: Colors.grey[500],
         elevation: 0,
-        titleTextStyle: mainWhite,
+        titleTextStyle: mainBlack,
         titleSpacing: 15,
       ),
       body: Column(

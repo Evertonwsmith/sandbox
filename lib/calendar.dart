@@ -12,43 +12,17 @@ class calendar extends StatefulWidget {
 
 class _calendarState extends State<calendar> {
   int week = 0;
-
-  //0 = this week
   int day = 0;
-
-  //0 = this day
-  final _controller = TextEditingController();
-
   late SharedPreferences _sharedPreferences;
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void _loadNotes() async {
-    _sharedPreferences = await SharedPreferences.getInstance();
-    String? notes = _sharedPreferences.getString('week$week$day');
-    if (notes != null) {
-      _controller.text = notes;
-    }
-  }
-
-  void _saveNotes() async {
-    _sharedPreferences = await SharedPreferences.getInstance();
-    _sharedPreferences.setString('week$week$day', _controller.text);
-  }
+  final _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    _loadNotes();
     return Scaffold(
         appBar: AppBar(
           title: Text("Calendar"),
-          backgroundColor: Colors.grey[500],
           elevation: 0,
-          titleTextStyle: mainWhite,
+          titleTextStyle: mainBlack,
           titleSpacing: 15,
         ),
         body: Column(
@@ -62,6 +36,7 @@ class _calendarState extends State<calendar> {
                   onPressed: () {
                     setState(() {
                       week--;
+                      _loadWeek();
                     });
                   },
                 ),
@@ -75,6 +50,7 @@ class _calendarState extends State<calendar> {
                   onPressed: () {
                     setState(() {
                       week++;
+                      _loadWeek();
                     });
                   },
                 ),
@@ -83,37 +59,67 @@ class _calendarState extends State<calendar> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                GestureDetector(
-                    onTap:(){ setState(() {
-                      day = 0;
-                    });},
-                    child: dayOfWeek(day: 'M')),
-                dayOfWeek(day: 'T'),
-                dayOfWeek(day: 'W'),
-                dayOfWeek(day: 'Th'),
-                dayOfWeek(day: 'F'),
-                dayOfWeek(day: 'St'),
-                dayOfWeek(day: 'Sn'),
+                IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    if (day > 0) {
+                      setState(() {
+                        _saveDay();
+                        day--;
+                        _loadDay();
+                      });
+                    }
+                  },
+                ),
+                Text(day == 0
+                    ? 'Monday'
+                    : day == 1
+                        ? 'Tuesday'
+                        : day == 2
+                            ? 'Wednesday'
+                            : day == 3
+                                ? 'Thursday'
+                                : day == 4
+                                    ? 'Friday'
+                                    : day == 5
+                                        ? 'Saturday'
+                                        : day == 6
+                                            ? 'Sunday'
+                                            : day.toString()),
+                IconButton(
+                  icon: Icon(Icons.arrow_forward),
+                  onPressed: () {
+                    if (day < 6) {
+                      setState(() {
+                        _saveDay();
+                        day++;
+                        _loadDay();
+                      });
+                    }
+                  },
+                ),
               ],
             ),
+            //TODO: add horizontal row swipeable day containers
             Expanded(
-              child: Container(
-                  width: 400,
-                  padding: EdgeInsets.all(50),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.grey[300],
-                  ),
-                  child: TextField(
-                    controller: _controller,
-                    minLines: 20,
-                    maxLines: 50,
-                    decoration: InputDecoration(),
-                    onChanged: (value) {
-                      _saveNotes();
-                    },
-                  )),
-            ),
+                child: Container(
+                    padding: EdgeInsets.all(40),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[150],
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                    ),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'What\'s happenin today?',
+                        hintStyle: mainBlack,
+                      ),
+                      minLines: 20,
+                      maxLines: null,
+                    ))),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -121,11 +127,38 @@ class _calendarState extends State<calendar> {
                   padding: EdgeInsets.all(10),
                   iconSize: 50,
                   icon: Icon(Icons.save),
-                  onPressed: () {},
+                  onPressed: () {
+                    _saveWeek();
+                  },
                 ),
               ],
             ),
           ],
         ));
+  }
+
+  Future<void> _loadWeek() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.getInt('week$week');
+    prefs.getString('weekNote$week$day');
+  }
+
+  Future<void> _loadDay() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.getInt('day$week$day');
+    prefs.getString('weekNote$week$day');
+  }
+
+  Future<void> _saveDay() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setInt('day$week$day', day);
+    prefs.setString('weekNote$week$day', _controller.text);
+  }
+
+  Future<void> _saveWeek() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setInt('week$week', week);
+    prefs.setInt('day$week$day', day);
+    prefs.setString('weekNote$week$day', _controller.text);
   }
 }
